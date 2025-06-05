@@ -1,0 +1,21 @@
+main(){
+    var width;
+    var height;
+    var area;
+    __printString("Enter width: ");
+    __readInt(&width);
+    __printString("Enter height: ");
+    __readInt(&height);
+    if (width < 0 || height < 0) {
+        __printString("Width and height must be non-negative.\n");
+    } else {
+        area = area(width, height);
+        __printString("The area is: ");
+        __printInt(area);
+        __printString("\n");
+    }
+}
+
+area(w,h){
+    return w * h;
+}

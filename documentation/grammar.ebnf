@@ -1,0 +1,57 @@
+<digit> = [0-9] ;
+
+<letter> ::= [A-Z] | [a-z] | "_"
+
+<unary_operator> ::= "+" | "-" | "*" | "!" | "~" | "&"
+
+<binary_operator> ::= "+" | "-" | "*" | "/" | "%" | "||" | "&&" | "<" | "<=" | ">" | ">=" | "==" | "!=" | "|" | "&" | "^" | "<<" | ">>" | "="
+
+
+<identifier> ::= <letter> | <letter> ( <letter> | <digit> )+
+
+<number> ::=  (<digit>)+
+
+<term> ::= <number> | <identifier>
+
+<function_call> ::= <identifier> "(" ((<expression> ",")* <expression> )? ")"
+
+
+<unary_operation> ::= <unary_operator> <expression>
+
+<binary_operation> ::= <expression> <binary_operator> <expression>
+
+<expression> ::= <term> | <function_call> | <binary_operation> | <unary_operation> | "(" <expression> ")"
+
+
+
+<var_decl_statement> ::= "var " <identifier> (((("[" <expression> "]")+ ("=" "{" ((<expression>) ",")* <expression> "}")?)) | ("=" <expression>)?) ";"
+
+<const_decl_statement> ::= "const " <identifier> (((("[" <expression> "]")+ ("=" "{" ((<expression>) ",")* <expression> "}"))) | ("=" <expression>)) ";"
+
+<if_else_statement> ::= "if" "(" <expression> ")" (("{" (<statement>)* "}") | <statement>)
+
+<switch_statement> ::= "switch" "(" <expression> ")" "{" (<statement>)* "}"
+
+<case_statement> ::= "case" <expression> ":"
+
+<default_statement> ::= "default:"
+
+<for_statement> ::= "for" "(" ((<expression> ";") | <var_decl_statement> | ";" )? (<expression>)? ";" (<expression>)? ")" (("{" (<statement>)* "}") | <statement>)  
+
+<while_statement> ::= "while" "(" <expression> ")" (("{" (<statement>)* "}") | <statement> )
+
+<do_while_statement> ::= "do" ((" " <statement>) | ("{" (<statement>)* "}")) "while" "(" <expression> ")" ";"
+
+<break_statement> ::= "break;"
+
+<continue_statement> ::= "continue;"
+
+<return_statement> ::= "return " <expression> ";"
+
+<statement> ::= (<expression> ";") | <var_decl_statement> | <const_decl_statement> | <if_else_statement> | <switch_statement> | <case_statement> | <default_statement> | <for_statement> | <while_statement> | <do_while_statement> | <break_statement> | <continue_statement> | <return_statement> | ";"
+
+
+
+<function> ::= <identifier> "(" ((<expression> ",")* <expression> )? ")" "{" (<statement>)* "}"
+
+<program> ::= (<var_decl_statement> | <const_decl_statement> | <function>)+

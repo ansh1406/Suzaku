@@ -1,0 +1,38 @@
+main()
+{
+    var num1;
+    var num2;
+    var operator;
+    var result;
+    __printString("Enter first number: ");
+    __readInt(&num1);
+    __printString("Enter second number: ");
+    __readInt(&num2);
+    __printString("Enter operator (+, -, *, /): ");
+    __readChar(&operator);
+    __printChar('\n');
+    switch(operator){
+        case '+':
+            result = num1 + num2;
+            break;
+        case '-':
+            result = num1 - num2;
+            break;
+        case '*':
+            result = num1 * num2;
+            break;
+        case '/':
+            result = num1 / num2;
+            break;
+        default:
+            __printString("Error: Unknown operator.\n");
+            return 1;
+    }
+    __printInt(num1);
+    __printChar(' ');
+    __printChar(operator);
+    __printChar(' ');
+    __printInt(num2);
+    __printString(" = ");
+    __printInt(result);
+}
