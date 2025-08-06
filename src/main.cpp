@@ -17,15 +17,27 @@
 
 int main(int argc, char *argv[])
 {
+    if(argc > 1) {
+        if(argv[1] == "--help"){
+            std::cout << "Usage: " << argv[0] << " <input_file> <output_file> [-i]" << std::endl;
+            std::cout << "  <input_file>   Source code file to compile." << std::endl;
+            std::cout << "  <output_file>  Output binary file name (without extension)." << std::endl;
+            std::cout << "  -i             (Optional) Keep intermediate representation (.lasm) file." << std::endl;
+            std::cout << "  --help         Show this help message and exit." << std::endl;
+            return 0;
+        }
+    }
     if (argc == 1)
     {
         std::cerr << "No input file provided. Please provide a file name." << std::endl;
         std::cerr << "Output file name is missing." << std::endl;
+        std::cerr << "Execute with option --help to view usage instructions." << std::endl;
         return 1;
     }
     if (argc == 2)
     {
         std::cerr << "Output file name is missing." << std::endl;
+        std::cerr << "Execute with option --help to view usage instructions." << std::endl;
         return 1;
     }
     bool keepIR = false;
