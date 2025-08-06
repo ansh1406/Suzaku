@@ -18,7 +18,7 @@
 int main(int argc, char *argv[])
 {
     if(argc > 1) {
-        if(argv[1] == "--help"){
+        if(std::string(argv[1]) == "--help"){
             std::cout << "Usage: " << argv[0] << " <input_file> <output_file> [-i]" << std::endl;
             std::cout << "  <input_file>   Source code file to compile." << std::endl;
             std::cout << "  <output_file>  Output binary file name (without extension)." << std::endl;
