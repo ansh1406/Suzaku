@@ -121,7 +121,7 @@ void SemanticChecker::checkFunctions()
         }
         if (funcDef->functionName->value == grammar::BuiltInFunctionAsString.at(grammar::BUILT_IN_FUNCTIONS::READ_INT))
         {
-            functions[funcDef->functionName->value] = 2; 
+            functions[funcDef->functionName->value] = 2;
             continue;
         }
         if (funcDef->functionName->value == grammar::BuiltInFunctionAsString.at(grammar::BUILT_IN_FUNCTIONS::READ_CHAR))
@@ -168,7 +168,7 @@ void SemanticChecker::checkFunctions()
                 }
                 localVariables[param->var->name->value] = 1;
                 localVariableValues[param->var->name->value] = new semantic_checker::Variable(param->var->name->value);
-                for(auto &dim : param->var->dimensions)
+                for (auto &dim : param->var->dimensions)
                 {
                     if (dim == nullptr || !checkForConstantExpression(dim))
                     {
@@ -198,7 +198,7 @@ void SemanticChecker::checkFunctions()
                 }
             }
         }
-        checkBlock(function->body,true);
+        checkBlock(function->body, true);
 
         localVariables.clear();
         localConstants.clear();
@@ -373,9 +373,9 @@ bool SemanticChecker::checkExpression(parser::ExpressionNode *&expr)
                 return false;
             }
         }
-        if (type == semantic_checker::LOCAL_CONSTANT || type== semantic_checker::GLOBAL_CONSTANT)
+        if (type == semantic_checker::LOCAL_CONSTANT || type == semantic_checker::GLOBAL_CONSTANT)
         {
-           expr = solveConstantExpression(expr);
+            expr = solveConstantExpression(expr);
         }
         if (type == semantic_checker::LOCAL_VARIABLE)
         {
@@ -413,7 +413,7 @@ bool SemanticChecker::checkExpression(parser::ExpressionNode *&expr)
     return true;
 }
 
-void SemanticChecker::checkStatement(parser::StatementNode *stmt , bool declarationAllowed)
+void SemanticChecker::checkStatement(parser::StatementNode *stmt, bool declarationAllowed)
 {
     switch (stmt->getNodeType())
     {
@@ -421,17 +421,17 @@ void SemanticChecker::checkStatement(parser::StatementNode *stmt , bool declarat
         checkExpressionStatement(static_cast<parser::ExpressionStatementNode *>(stmt));
         break;
     case parser::VARIABLE_DECLARATION:
-        if(!declarationAllowed)
+        if (!declarationAllowed)
         {
-            errorHandler.reportError(static_cast<parser::VariableDeclarationNode *>(stmt)->var->name->lineNumber,static_cast<parser::VariableDeclarationNode *> (stmt)->var->name->columnNumber, "Variable declaration is not allowed in blocks.");
+            errorHandler.reportError(static_cast<parser::VariableDeclarationNode *>(stmt)->var->name->lineNumber, static_cast<parser::VariableDeclarationNode *>(stmt)->var->name->columnNumber, "Variable declaration is not allowed in blocks.");
             return;
         }
         checkVariableDeclaration(static_cast<parser::VariableDeclarationNode *>(stmt));
         break;
     case parser::CONSTANT_DECLARATION:
-        if(!declarationAllowed)
+        if (!declarationAllowed)
         {
-            errorHandler.reportError(static_cast<parser::ConstantDeclarationNode *>(stmt)->var->name->lineNumber,static_cast<parser::ConstantDeclarationNode *>(stmt)->var->name->columnNumber, "Constant declaration is not allowed in blocks.");
+            errorHandler.reportError(static_cast<parser::ConstantDeclarationNode *>(stmt)->var->name->lineNumber, static_cast<parser::ConstantDeclarationNode *>(stmt)->var->name->columnNumber, "Constant declaration is not allowed in blocks.");
             return;
         }
         checkConstantDeclaration(static_cast<parser::ConstantDeclarationNode *>(stmt));
@@ -448,11 +448,11 @@ void SemanticChecker::checkStatement(parser::StatementNode *stmt , bool declarat
     }
 }
 
-void SemanticChecker::checkBlock(parser::Block *block , bool declarationAllowed)
+void SemanticChecker::checkBlock(parser::Block *block, bool declarationAllowed)
 {
     for (auto &stmt : block->statements)
     {
-        checkStatement(stmt,declarationAllowed);
+        checkStatement(stmt, declarationAllowed);
     }
 }
 
@@ -905,6 +905,7 @@ parser::ExpressionNode *SemanticChecker::solveConstantExpression(parser::Express
             return new parser::IntegerNode(!operand);
         }
     }
+    return nullptr;
 }
 
 int SemanticChecker::getDimentionalOffset(parser::VariableNode *var, std::vector<int> &dimensions)
