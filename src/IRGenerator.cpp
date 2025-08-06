@@ -234,7 +234,8 @@ irgenerator::StatementNode *IRGenerator::generateStatement(parser::StatementNode
     case parser::NodeType::DO_WHILE_LOOP_STATEMENT:
         return generateDoWhileLoop(static_cast<parser::DoWhileLoopNode *>(stmt));
     case parser::NodeType::CONSTANT_DECLARATION:
-        // Constants are not supported in IR generation, so we skip them
+        return nullptr;
+    default:
         return nullptr;
     }
 }
@@ -261,6 +262,8 @@ irgenerator::StatementNode *IRGenerator::generateBreakStatement(irgenerator::Cod
         return new irgenerator::DoWhileLoopBreakStatementNode(codeBlockContext->codeBlockId);
     case irgenerator::IRCodeBlockType::SWITCH:
         return new irgenerator::SwitchBreakStatementNode(codeBlockContext->codeBlockId);
+    default:
+        return nullptr;
     }
 }
 

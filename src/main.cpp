@@ -17,8 +17,10 @@
 
 int main(int argc, char *argv[])
 {
-    if(argc > 1) {
-        if(std::string(argv[1]) == "--help"){
+    if (argc > 1)
+    {
+        if (std::string(argv[1]) == "--help")
+        {
             std::cout << "Usage: " << argv[0] << " <input_file> <output_file> [-i]" << std::endl;
             std::cout << "  <input_file>   Source code file to compile." << std::endl;
             std::cout << "  <output_file>  Output binary file name (without extension)." << std::endl;
@@ -72,19 +74,27 @@ int main(int argc, char *argv[])
         std::cerr << "Error parsing program." << std::endl;
         return 1;
     }
+
+#ifdef DEBUG
     std::cout << "Parsed program successfully." << std::endl;
+#endif
 
     SemanticChecker semanticChecker(program, errorHandler);
     semanticChecker.check();
     if (errorHandler.getErrorCount() > 0)
     {
+#ifdef DEBUG
         std::cerr << "Errors found during semantic analysis. Exiting." << std::endl;
+#endif
         return 1;
     }
 
     IRGenerator irGenerator(program);
     irgenerator::IntermediateRepresentation *ir = irGenerator.generateIR();
+
+#ifdef DEBUG
     std::cout << "Generated Intermediate Representation successfully." << std::endl;
+#endif
 
     std::ofstream irFile(irFileName);
     if (!irFile)
@@ -94,13 +104,22 @@ int main(int argc, char *argv[])
     }
     IRFileWriter irFileWriter(irFile, ir);
     irFileWriter.write();
+
+#ifdef DEBUG
     std::cout << "Wrote Intermediate Representation to file successfully." << std::endl;
+#endif
+
     irFile.close();
+
     std::ifstream irFileIn(irFileName);
     std::ofstream outputFile(outputFileName, std::ios::binary);
     BinaryGenerator binaryGenerator(irFileIn, outputFile);
+
     binaryGenerator.generateBinary();
+
+#ifdef DEBUG
     std::cout << "Generated binary file successfully." << std::endl;
+#endif
 
     programFile.close();
     outputFile.close();
@@ -109,4 +128,3 @@ int main(int argc, char *argv[])
         std::remove(irFileName.c_str());
     return 0;
 }
-
