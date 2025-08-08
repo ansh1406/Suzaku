@@ -1,6 +1,6 @@
 #ifndef ERRORHANDLER_H
 #define ERRORHANDLER_H
-
+#include <iostream>
 #include <string>
 struct Error
 {

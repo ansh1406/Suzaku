@@ -1,5 +1,4 @@
 #include "binaryGenerator.hpp"
-#include <cstdint>
 
 void BinaryGenerator::generateBinary()
 {

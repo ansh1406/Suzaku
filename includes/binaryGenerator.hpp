@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+#include <cstdint>
 
 namespace binarygenerator
 {
